@@ -1,6 +1,6 @@
-@echo off
+@echo on
 
-SET ROOTURL=https://mathiashjelm.gitlab.io/arcanum/data/
+SET ROOTURL=https://gitlab.com/mathiashjelm/arcanum/-/raw/master/data/
 echo Downloading data from %ROOTURL%
 
 for %%x in (
@@ -36,7 +36,7 @@ for %%x in (
         weapons.json
        ) do (
        echo Downloading %ROOTURL%%%x
-       curl %ROOTURL%%%x > %%x
+       curl %ROOTURL%%%x > %%x --ssl-no-revoke
        )
 
 for %%x in (
@@ -50,5 +50,5 @@ for %%x in (
         extraaction.json
        ) do (
        echo Downloading %ROOTURL%modules/%%x
-       curl %ROOTURL%%%x > modules/%%x
+       curl %ROOTURL%%%x > modules/%%x --ssl-no-revoke 
        )
