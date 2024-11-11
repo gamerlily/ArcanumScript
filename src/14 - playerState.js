@@ -129,6 +129,9 @@
                     }
 
                     if(AE.playerState.activeTab !== tabId){
+                        if (AE.config.enableDebugMode == true) {
+                            AE.log("Tab detected:" + tabKey);
+                        }
                         AE.playerState.activeTab = tabId;
                     }
                 }

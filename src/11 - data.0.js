@@ -166,7 +166,7 @@
 
     AE.data.TaskGroups = {
         'Rest': ['rest', 'slumber', 'naturecamp', 'chant', 'eatchildren'],
-        'Gold': ['cleanstables', 'sellscroll', 'sellherbs', 'sellgem', 'pouch', 'thievery', 'readpalms', 'service', 'spingold',
+        'Gold': ['cleanstables', 'sellscroll', 'sellscrolls', 'sellherbs', 'sellgem', 'pouch', 'thievery', 'readpalms', 'service', 'spingold',
             'embalm', 'paidseance', 'heist', 'magicadvice', 'chores', 'treatailments', 'errands', 'prestidigitation', 'act_mine',
             'purse', 'restless'],
         'Research': ['buyscroll', 'scribescroll', 'sublimate', 'bindcodex', 'compiletome', 'pace', 'act_element', 'mapstars',

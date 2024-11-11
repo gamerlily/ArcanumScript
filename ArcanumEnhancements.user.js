@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name         Arcanum Enhancements Lily's Branch
 // @version      2024.11.11.0
-// @author       Craiel
-// @contributer  Lily
+// @author       Craiel, contributer Lily
 // @description  Automation
 // @updateURL    https://github.com/Craiel/ArcanumScript/raw/master/ArcanumEnhancements.user.js
 // @downloadURL  https://github.com/Craiel/ArcanumScript/raw/master/ArcanumEnhancements.user.js
@@ -146,7 +145,9 @@ let AE = (function($){
     'use strict';
 
     AE.config = {
-        enableDebugMode: false,
+        enableDebugMode: true,
+        //Debug levels: 0 (No debugging), 1 (Rarely called), 2 (Detaild info), 3 (frequently called)
+        debugMainLevel: 2,
         arcanumAutomationPresent: false,
         quickSlotCount: 10,
         quickSlotPresetCount: 3,
@@ -324,7 +325,7 @@ let AE = (function($){
 
     AE.data.TaskGroups = {
         'Rest': ['rest', 'slumber', 'naturecamp', 'chant', 'eatchildren'],
-        'Gold': ['cleanstables', 'sellscroll', 'sellherbs', 'sellgem', 'pouch', 'thievery', 'readpalms', 'service', 'spingold',
+        'Gold': ['cleanstables', 'sellscroll', 'sellscrolls', 'sellherbs', 'sellgem', 'pouch', 'thievery', 'readpalms', 'service', 'spingold',
             'embalm', 'paidseance', 'heist', 'magicadvice', 'chores', 'treatailments', 'errands', 'prestidigitation', 'act_mine',
             'purse', 'restless'],
         'Research': ['buyscroll', 'scribescroll', 'sublimate', 'bindcodex', 'compiletome', 'pace', 'act_element', 'mapstars',
@@ -1231,6 +1232,9 @@ let AE = (function($){
                     }
 
                     if(AE.playerState.activeTab !== tabId){
+                        if (AE.config.enableDebugMode == true) {
+                            AE.log("Tab detected:" + tabKey);
+                        }
                         AE.playerState.activeTab = tabId;
                     }
                 }
@@ -2572,7 +2576,10 @@ let AE = (function($){
             this.pinnedColor = '#5698ffAA';
         }
 
-        clearState(){
+        clearState() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running clearState()");
+            }
             this.taskButtons = {};
             this.taskButtonOriginalParents = {};
             this.pinnedButtons = {};
@@ -2581,6 +2588,10 @@ let AE = (function($){
         }
 
         updateUI(delta) {
+            //Calls for a main tab UI update.
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateUI(" + delta + ")");
+            }
             if (AE.playerState.activeTab !== AE.data.GameTabs.Main) {
                 this.clearState();
                 return;
@@ -2600,6 +2611,10 @@ let AE = (function($){
         }
 
         updateAutomation(delta) {
+            //TOREAD: Update the the UI? Look into more deeply, run regularly
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateAutomation(" + delta + ")");
+            }
             let topRoot = $('div.main-tasks');
             if(topRoot.length === 0) {
                 return;
@@ -2610,6 +2625,9 @@ let AE = (function($){
         }
 
         updateImbueAllButton() {
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateImbueAllButton(" + ")");
+            }
             let imbueButton = $('#at_imbue_gems_btn');
             if(imbueButton.length === 0) {
                 return;
@@ -2624,6 +2642,9 @@ let AE = (function($){
         }
 
         updatePinnedButtons() {
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updatePinnedButtons(" + ")");
+            }
             for(let key in this.pinnedButtons) {
                 if(this.pinnedButtons[key] !== true) {
                     continue;
@@ -2641,6 +2662,9 @@ let AE = (function($){
         }
 
         updateTaskButtonDisplay() {
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateTaskButtonDisplay(" + ")");
+            }
             for(let key in this.taskButtons) {
                 let button = this.taskButtons[key];
                 let buttonEl = $(button.btn);
@@ -2665,6 +2689,9 @@ let AE = (function($){
         }
 
         onToggleMainBarTaskDisplay(checked) {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running onToggleMainBarTaskDisplay(" + checked + ")");
+            }
             if(AE.settings.data.mainScreenAlternateDisplay !== checked) {
                 // Update the settings
                 AE.settings.data.mainScreenAlternateDisplay = checked;
@@ -2674,7 +2701,10 @@ let AE = (function($){
             this.rebuildTaskButtonDisplay();
         }
 
-        rebuildTaskButtonDisplay(){
+        rebuildTaskButtonDisplay() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running rebuildTaskButtonDisplay(" + ")");
+            }
             let vanillaRoot = $('#vanilla_task_display');
             let alternateDisplayRoot = $('#at_main_alternative_task_display');
 
@@ -2703,6 +2733,9 @@ let AE = (function($){
         }
 
         createImbueAllButton() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running createImbueAllButton(" + ")");
+            }
             let existing = $('#at_imbue_gems_btn');
             if(existing.length !== 0) {
                 existing.remove();
@@ -2742,6 +2775,9 @@ let AE = (function($){
         }
 
         clickTaskButton(key) {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running clickTaskButton(" + key + ")");
+            }
             let data = this.taskButtons[key];
             if(data === undefined) {
                 return;
@@ -2750,7 +2786,10 @@ let AE = (function($){
             $(data.btn).click();
         }
 
-        moveTaskButtonsToOriginalParents(){
+        moveTaskButtonsToOriginalParents() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running moveTaskButtonsToOriginalParents(" + ")");
+            }
             for(let key in this.taskButtons) {
                 let el = $(this.taskButtons[key].btn);
                 let parent = this.taskButtonOriginalParents[key];
@@ -2762,6 +2801,9 @@ let AE = (function($){
         }
 
         createTaskGroup(id, title) {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running createTaskGroup(" + id + "," + title + ")");
+            }
             let html = AE.utils.processTemplate(GroupHTML, {
                 id: id,
                 title: title
@@ -2774,6 +2816,9 @@ let AE = (function($){
         }
 
         moveTaskButtonsToGroupedDisplay(target) {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running moveTaskButtonsToGroupedDisplay(" + target + ")");
+            }
             target.empty();
 
             let groups = {};
@@ -2811,6 +2856,9 @@ let AE = (function($){
         }
 
         updateMainTabCustomBar() {
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateMainTabCustomBar(" + ")");
+            }
             let existing = $('#at_main_top_bar');
             if(existing.length !== 0) {
                 return;
@@ -2838,6 +2886,9 @@ let AE = (function($){
         }
 
         resetPinnedButtons() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running resetPinnedButtons(" + ")");
+            }
             for(let key in this.pinnedButtons) {
                 if(this.pinnedButtons[key] !== true) {
                     continue;
@@ -2848,7 +2899,10 @@ let AE = (function($){
             }
         }
 
-        refreshTaskButtonState(){
+        refreshTaskButtonState() {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running refreshTaskButtonState(" + ")");
+            }
             AE.tabStyleMain.taskButtons = {};
 
             if(this.activeButtonRoot === undefined){
@@ -2888,6 +2942,9 @@ let AE = (function($){
         }
 
         pinTaskButtonCallback(event) {
+            if (AE.config.enableDebugMode == true) {
+                AE.log("running pinTaskButtonCallback(" + event + ")");
+            }
             if (event !== undefined && event.originalEvent !== undefined && event.originalEvent.ctrlKey === true) {
                 let dataKey = event.data.key;
                 if(AE.tabStyleMain.pinnedButtons[dataKey] === true) {
@@ -2899,19 +2956,39 @@ let AE = (function($){
             }
         }
 
+        //Updates main tab, shifts added buttons to new divs
         updateMainTabAlternativeTaskDisplay() {
+            if (AE.config.debugMainLevel == 3) {
+                AE.log("running updateMainTabAlternativeTaskDisplay(" + ")");
+            }
+
+            //TODO: Currently exiting when existing length is 0,
+            //should instead check if additional buttons have been added
             let existing = $('#at_main_alternative_task_display');
-            if(existing.length !== 0) {
+            if (existing.length !== 0) {
+                let root = $('div.main-tasks');
+                if (root[0].children.length == 3) {
+                    return;
+                }
+                if (AE.config.debugMainLevel == 2) {
+                    AE.log("root[0].children length:" + root[0].children.length)
+                    console.log(root[0].children)
+                }
                 return;
             }
 
             let root = $('div.main-tasks');
-            if(root.length !== 1) {
+            if (AE.config.debugMainLevel == 2) {
+                AE.log("root length:" + root.length)
+                console.log(root)
+            }
+            if (root.length !== 1) {
                 return;
             }
 
             let current = $('<div id="vanilla_task_display" class="main-tasks"></div>');
-            root.children().each(function() {
+            root.children().each(function () {
+                console.log($(this));
                 $(this).detach();
                 current.append($(this));
             });
