@@ -153,7 +153,7 @@
         "titan's hammer": {type: AE.data.ItemType.Weapon, subType: AE.data.WeaponSubType.Mace2H}
     };
 
-    AE.data.GemImbueTaskIds = ['imbuelifegem', 'imbuemanagem', 'imbuebloodgem', 'imbuefiregem',
+    AE.data.GemImbueTaskIds = ['imbuelifegem', 'imbuemanagem', 'imbuechaosgem', 'imbuebloodgem', 'imbuefiregem',
         'imbueairgem', 'imbueearthgem', 'imbuewatergem', 'imbuelightgem', 'imbueshadowgem', 'imbuespiritgem'];
 
     AE.data.ClassUpgradeTasks = ['apprentice', 'falconer', 'herbalist', 'scribe', 'neophyte', 'adept', 'blueadept', 'savant',

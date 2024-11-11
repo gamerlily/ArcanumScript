@@ -1,7 +1,8 @@
 // ==UserScript==
-// @name         Arcanum Enhancements
-// @version      2021.0.10.4
+// @name         Arcanum Enhancements Lily's Branch
+// @version      2024.11.11.0
 // @author       Craiel
+// @contributer  Lily
 // @description  Automation
 // @updateURL    https://github.com/Craiel/ArcanumScript/raw/master/ArcanumEnhancements.user.js
 // @downloadURL  https://github.com/Craiel/ArcanumScript/raw/master/ArcanumEnhancements.user.js
