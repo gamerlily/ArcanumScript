@@ -11,6 +11,11 @@
                 }
 
                 case AE.data.GameTabs.Player: {
+                    if (returnToMain) {
+                        returnToMain = false;
+                        $(Array.from(document.querySelectorAll('span'))
+                            .find(el => el.textContent === 'main')).trigger('click');
+                    }
                     this.updatePlayerTab();
                     break;
                 }
@@ -28,11 +33,6 @@
         }
 
         updatePlayerTab() {
-            if (returnToMain) {
-                returnToMain = false;
-                $(Array.from(document.querySelectorAll('span'))
-                    .find(el => el.textContent === 'main')).trigger('click');
-            }
             this.updateMountSelectionPopup();
         }
 

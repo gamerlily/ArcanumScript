@@ -2469,6 +2469,11 @@ var returnToMain = false;
                 }
 
                 case AE.data.GameTabs.Player: {
+                    if (returnToMain) {
+                        returnToMain = false;
+                        $(Array.from(document.querySelectorAll('span'))
+                            .find(el => el.textContent === 'main')).trigger('click');
+                    }
                     this.updatePlayerTab();
                     break;
                 }
@@ -2486,11 +2491,6 @@ var returnToMain = false;
         }
 
         updatePlayerTab() {
-            if (returnToMain) {
-                returnToMain = false;
-                $(Array.from(document.querySelectorAll('span'))
-                    .find(el => el.textContent === 'main')).trigger('click');
-            }
             this.updateMountSelectionPopup();
         }
 
@@ -2987,53 +2987,16 @@ var returnToMain = false;
                     console.log(root[0].children)
                 }
                 let current = $('<div id="vanilla_task_display" class="main-tasks"></div>');
-//                console.log(root[0].children[1].children)
-                //Go through the tabs to see which ones need to be added
+
                 if (AE.config.debugMainLevel >= 1) {
                     AE.log("Restructuring for new button")
                 }
 
                 returnToMain = true;
+
                 $(Array.from(document.querySelectorAll('span'))
                     .find(el => el.textContent === 'player')).trigger('click');
 
-                //$('.block-title span').trigger('click');
-
-                $(root[0]).children().each(function () {
-                    /*if (AE.config.debugMainLevel >= 2) {
-                        AE.log("this:")
-                        console.log(this)
-                    }
-                    if (AE.config.debugMainLevel >= 1) {
-                        AE.log("Looking at ID:" + $(this)[0].id);
-                    }
-                    if (AE.config.debugMainLevel >= 2) {
-                        console.log($(this));
-                    }
-                    //Found the object without an ID, means it's a new insert that needs to go into a catagory
-                    if ($(this)[0].id == "") {
-                        $(this).detach();
-                        if (AE.config.debugMainLevel >= 2) {
-                            AE.log("New children to be added")
-                            console.log($(this).children());
-                        }
-                        $(this).children().each(function () {
-                            if (AE.config.debugMainLevel >= 1) {
-                                AE.log("----")
-                            }
-                            console.log($(this))
-                            if (AE.config.debugMainLevel >= 1) {
-                                AE.log("----")
-                            }
-                        })
-//                        $(this)[0].children().each(function () {
-//                            console.log($(this))
-//                        }
-                    }*/
-//                    console.log($(this));
-//                    $(this).detach();
-//                    current.append($(this));
-                });
                 return;
             }
 
