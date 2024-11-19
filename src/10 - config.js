@@ -4,7 +4,7 @@
 
     AE.config = {
         enableDebugMode: true,
-        //Debug levels: 0 (No debugging), 1 (Rarely called), 2 (Detaild info), 3 (frequently called)
+        //Debug levels: 0 (No debugging), 1 (Rarely called), 2 (Detaild info), 3 (Deep detail)
         debugMainLevel: 2,
         arcanumAutomationPresent: false,
         quickSlotCount: 10,

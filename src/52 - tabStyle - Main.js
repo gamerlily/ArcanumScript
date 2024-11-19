@@ -37,7 +37,7 @@
 
         updateUI(delta) {
             //Calls for a main tab UI update.
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateUI(" + delta + ")");
             }
             if (AE.playerState.activeTab !== AE.data.GameTabs.Main) {
@@ -60,7 +60,7 @@
 
         updateAutomation(delta) {
             //TOREAD: Update the the UI? Look into more deeply, run regularly
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateAutomation(" + delta + ")");
             }
             let topRoot = $('div.main-tasks');
@@ -73,7 +73,7 @@
         }
 
         updateImbueAllButton() {
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateImbueAllButton(" + ")");
             }
             let imbueButton = $('#at_imbue_gems_btn');
@@ -90,7 +90,7 @@
         }
 
         updatePinnedButtons() {
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updatePinnedButtons(" + ")");
             }
             for(let key in this.pinnedButtons) {
@@ -110,7 +110,7 @@
         }
 
         updateTaskButtonDisplay() {
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateTaskButtonDisplay(" + ")");
             }
             for(let key in this.taskButtons) {
@@ -304,7 +304,7 @@
         }
 
         updateMainTabCustomBar() {
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateMainTabCustomBar(" + ")");
             }
             let existing = $('#at_main_top_bar');
@@ -406,7 +406,7 @@
 
         //Updates main tab, shifts added buttons to new divs
         updateMainTabAlternativeTaskDisplay() {
-            if (AE.config.debugMainLevel == 3) {
+            if (AE.config.debugMainLevel >= 3) {
                 AE.log("running updateMainTabAlternativeTaskDisplay(" + ")");
             }
 
@@ -418,15 +418,39 @@
                 if (root[0].children.length == 3) {
                     return;
                 }
-                if (AE.config.debugMainLevel == 2) {
+                if (AE.config.debugMainLevel >= 2) {
                     AE.log("root[0].children length:" + root[0].children.length)
                     console.log(root[0].children)
                 }
+                let current = $('<div id="vanilla_task_display" class="main-tasks"></div>');
+//                console.log(root[0].children[1].children)
+                //Go through the tabs to see which ones need to be added
+                if (AE.config.debugMainLevel >= 1) {
+                    AE.log("Restructuring for new button")
+                }
+                $(root[0]).children().each(function () {
+                    if (AE.config.debugMainLevel >= 1) {
+                        AE.log("Looking at ID:" + $(this)[0].id)
+                    }
+                    if (AE.config.debugMainLevel >= 2) {
+                        console.log($(this))
+                    }
+                    if ($(this)[0].id == "") {
+                        console.log($(this)[0].children)
+                        console.log($(this)[0].children)
+//                        $(this)[0].children().each(function () {
+//                            console.log($(this))
+//                        }
+                    }
+//                    console.log($(this));
+//                    $(this).detach();
+//                    current.append($(this));
+                });
                 return;
             }
 
             let root = $('div.main-tasks');
-            if (AE.config.debugMainLevel == 2) {
+            if (AE.config.debugMainLevel >= 2) {
                 AE.log("root length:" + root.length)
                 console.log(root)
             }
